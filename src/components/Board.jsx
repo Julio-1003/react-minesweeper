@@ -3,9 +3,9 @@ import Cell from "./Cell";
 
 function Board() {
   const [board, setBoard] = useState(generateBoard());
-
   const [gameStarted, setGameStarted] = useState(false);
   const [time, setTime] = useState(0);
+  const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
     if (gameStarted) {
@@ -37,6 +37,11 @@ function Board() {
   };
   
   const handleClick = (i, j) => {
+    
+    if (gameOver) {
+      return;
+    }
+    
     if (board[(i, j)] === true) {
       return;
     }
@@ -63,7 +68,9 @@ function Board() {
       row.map((cell) => (cell === "B" ? "B_clicked" : true))
     );
     setBoard(newBoard);
+    setGameOver(true);
   };
+  
 
   return (
     <div className="board">
